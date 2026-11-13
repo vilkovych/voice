@@ -1,0 +1,5 @@
+build/
+toolchain_fix/
+design/
+*.wav
+.DS_Store

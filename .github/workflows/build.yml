@@ -1,0 +1,19 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Toolchain
+        run: swiftc --version
+      - name: Build
+        run: VOICE_ADHOC=1 ./install.sh --build
+      - name: Smoke test (export sounds without UI)
+        run: |
+          build/Voice.app/Contents/MacOS/Voice --sounds "$RUNNER_TEMP/voice-sounds" > /dev/null
+          ls "$RUNNER_TEMP/voice-sounds" | wc -l
