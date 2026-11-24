@@ -1,0 +1,142 @@
+[
+ {
+  "id": "cash-hurt",
+  "kind": "song",
+  "title": "Hurt",
+  "artist": "Johnny Cash",
+  "why": "Кеш наприкінці життя переспівує чужу пісню і робить із неї сповідь.",
+  "videoId": "CG-1JDi4240",
+  "n": 36,
+  "uk": 0
+ },
+ {
+  "id": "dylan-hurricane",
+  "kind": "song",
+  "title": "Hurricane",
+  "artist": "Bob Dylan",
+  "why": "Тру крайм у пісні: справа боксера Рубіна Картера, засудженого за потрійне вбивство.",
+  "videoId": "bpZvg_FjL3Q",
+  "n": 99,
+  "uk": 0
+ },
+ {
+  "id": "cash-folsom",
+  "kind": "song",
+  "title": "Folsom Prison Blues",
+  "artist": "Johnny Cash",
+  "why": "Пісня від імені в'язня, який застрелив людину «просто щоб подивитися, як вона помре».",
+  "videoId": "s_NLlOiD1Wo",
+  "n": 18,
+  "uk": 0
+ },
+ {
+  "id": "handsome-far-from-any-road",
+  "kind": "song",
+  "title": "Far From Any Road",
+  "artist": "The Handsome Family",
+  "why": "Тема першого сезону «Справжнього детектива».",
+  "videoId": "m_vBi-Hg-BU",
+  "n": 12,
+  "uk": 0
+ },
+ {
+  "id": "sg-sound-of-silence",
+  "kind": "song",
+  "title": "The Sound of Silence",
+  "artist": "Simon & Garfunkel",
+  "why": "Про людей, які говорять, але не чують одне одного.",
+  "videoId": "4fWyzwo1xg0",
+  "n": 34,
+  "uk": 0
+ },
+ {
+  "id": "chapman-fast-car",
+  "kind": "song",
+  "title": "Fast Car",
+  "artist": "Tracy Chapman",
+  "why": "Історія спроби вирватися з бідності, розказана як короткий фільм.",
+  "videoId": "JpscHOoGIqQ",
+  "n": 66,
+  "uk": 0
+ },
+ {
+  "id": "cooke-change",
+  "kind": "song",
+  "title": "A Change Is Gonna Come",
+  "artist": "Sam Cooke",
+  "why": "Написана після того, як Кука з дружиною не пустили в мотель для білих.",
+  "videoId": "wEBlaMOmKV4",
+  "n": 36,
+  "uk": 0
+ },
+ {
+  "id": "gaye-whats-going-on",
+  "kind": "song",
+  "title": "What's Going On",
+  "artist": "Marvin Gaye",
+  "why": "Америка часів В'єтнаму очима людини, чий брат повернувся з війни.",
+  "videoId": "KDK7TiEiMOI",
+  "n": 40,
+  "uk": 0
+ },
+ {
+  "id": "withers-sunshine",
+  "kind": "song",
+  "title": "Ain't No Sunshine",
+  "artist": "Bill Withers",
+  "why": "Дві хвилини, і «I know» повторюється 26 разів поспіль.",
+  "videoId": "YuKfiH0Scao",
+  "n": 26,
+  "uk": 0
+ },
+ {
+  "id": "springsteen-philadelphia",
+  "kind": "song",
+  "title": "Streets of Philadelphia",
+  "artist": "Bruce Springsteen",
+  "why": "Написана для фільму «Філадельфія», отримала «Оскар».",
+  "videoId": "1Z0jSNaIc4Q",
+  "n": 20,
+  "uk": 0
+ },
+ {
+  "id": "ccr-fortunate-son",
+  "kind": "song",
+  "title": "Fortunate Son",
+  "artist": "Creedence Clearwater Revival",
+  "why": "Злий протест: на війну йдуть не сини сенаторів.",
+  "videoId": "3RmQTYLD398",
+  "n": 28,
+  "uk": 0
+ },
+ {
+  "id": "eagles-hotel-california",
+  "kind": "song",
+  "title": "Hotel California",
+  "artist": "Eagles",
+  "why": "Притча про пастку слави й грошей, з якої неможливо вийти.",
+  "videoId": "dLl4PZtxia8",
+  "n": 38,
+  "uk": 0
+ },
+ {
+  "id": "simone-feeling-good",
+  "kind": "song",
+  "title": "Feeling Good",
+  "artist": "Nina Simone",
+  "why": "Пісня з бродвейського мюзиклу, яку Сімон зробила своєю назавжди.",
+  "videoId": "Yc5jwR9KUvg",
+  "n": 34,
+  "uk": 0
+ },
+ {
+  "id": "mclean-vincent",
+  "kind": "song",
+  "title": "Vincent",
+  "artist": "Don McLean",
+  "why": "Лист Ван Гогу від людини, яка його зрозуміла.",
+  "videoId": "oxHnRfhDmrk",
+  "n": 47,
+  "uk": 0
+ }
+]
