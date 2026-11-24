@@ -1,0 +1,4 @@
+__pycache__/
+build-report.txt
+app/lessons/
+app/catalog.json

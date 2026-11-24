@@ -1,0 +1,37 @@
+[
+  {"id": "cash-hurt", "kind": "song", "artist": "Johnny Cash", "title": "Hurt", "why": "Кеш наприкінці життя переспівує чужу пісню і робить із неї сповідь."},
+  {"id": "dylan-hurricane", "kind": "song", "artist": "Bob Dylan", "title": "Hurricane", "why": "Тру крайм у пісні: справа боксера Рубіна Картера, засудженого за потрійне вбивство."},
+  {"id": "cash-folsom", "kind": "song", "artist": "Johnny Cash", "title": "Folsom Prison Blues", "why": "Пісня від імені в'язня, який застрелив людину «просто щоб подивитися, як вона помре»."},
+  {"id": "handsome-far-from-any-road", "kind": "song", "artist": "The Handsome Family", "title": "Far From Any Road", "why": "Тема першого сезону «Справжнього детектива»."},
+  {"id": "sg-sound-of-silence", "kind": "song", "artist": "Simon & Garfunkel", "title": "The Sound of Silence", "why": "Про людей, які говорять, але не чують одне одного."},
+  {"id": "chapman-fast-car", "kind": "song", "artist": "Tracy Chapman", "title": "Fast Car", "why": "Історія спроби вирватися з бідності, розказана як короткий фільм."},
+  {"id": "cooke-change", "kind": "song", "artist": "Sam Cooke", "title": "A Change Is Gonna Come", "why": "Написана після того, як Кука з дружиною не пустили в мотель для білих."},
+  {"id": "gaye-whats-going-on", "kind": "song", "artist": "Marvin Gaye", "title": "What's Going On", "why": "Америка часів В'єтнаму очима людини, чий брат повернувся з війни."},
+  {"id": "withers-sunshine", "kind": "song", "artist": "Bill Withers", "title": "Ain't No Sunshine", "why": "Дві хвилини, і «I know» повторюється 26 разів поспіль."},
+  {"id": "springsteen-philadelphia", "kind": "song", "artist": "Bruce Springsteen", "title": "Streets of Philadelphia", "why": "Написана для фільму «Філадельфія», отримала «Оскар»."},
+  {"id": "ccr-fortunate-son", "kind": "song", "artist": "Creedence Clearwater Revival", "title": "Fortunate Son", "why": "Злий протест: на війну йдуть не сини сенаторів."},
+  {"id": "eagles-hotel-california", "kind": "song", "artist": "Eagles", "title": "Hotel California", "why": "Притча про пастку слави й грошей, з якої неможливо вийти."},
+  {"id": "simone-feeling-good", "kind": "song", "artist": "Nina Simone", "title": "Feeling Good", "why": "Пісня з бродвейського мюзиклу, яку Сімон зробила своєю назавжди."},
+  {"id": "mclean-vincent", "kind": "song", "artist": "Don McLean", "title": "Vincent", "why": "Лист Ван Гогу від людини, яка його зрозуміла."},
+
+  {"id": "td-flat-circle", "kind": "scene", "title": "True Detective — «Час — це плаский круг»", "query": "True Detective time is a flat circle scene", "why": "Раст Коул на допиті: монолог, який зробив серіал культовим."},
+  {"id": "nocountry-coin", "kind": "scene", "title": "No Country for Old Men — підкидання монети", "query": "No Country for Old Men coin toss scene", "why": "Розмова, від якої залежить життя, а людина навпроти про це не знає."},
+  {"id": "heat-diner", "kind": "scene", "title": "Heat — розмова в кафе", "query": "Heat diner scene Pacino De Niro", "why": "Коп і грабіжник за одним столом чесно кажуть, що вб'ють одне одного."},
+  {"id": "darkknight-interrogation", "kind": "scene", "title": "The Dark Knight — допит Джокера", "query": "The Dark Knight interrogation scene Joker Batman", "why": "Нолан: допит, де влада весь час переходить з рук у руки."},
+  {"id": "zodiac-basement", "kind": "scene", "title": "Zodiac — сцена в підвалі", "query": "Zodiac basement scene Bob Vaughn", "why": "Фінчер будує жах без жодного пострілу, тільки розмовою."},
+  {"id": "se7en-box", "kind": "scene", "title": "Se7en — фінал у полі", "query": "Se7en ending scene what's in the box", "why": "Фінал Фінчера, який обговорюють уже тридцять років."},
+  {"id": "mindhunter-kemper", "kind": "scene", "title": "Mindhunter — перша розмова з Кемпером", "query": "Mindhunter Ed Kemper first interview scene", "why": "Агенти ФБР уперше сідають навпроти серійного вбивці."},
+  {"id": "prisoners-interrogation", "kind": "scene", "title": "Prisoners — детектив Локі на допиті", "query": "Prisoners Detective Loki interrogation scene", "why": "Детектив тисне на підозрюваного, а час іде проти нього."},
+  {"id": "socialnetwork-opening", "kind": "scene", "title": "The Social Network — перша сцена", "query": "The Social Network opening scene Erica", "why": "Фінчер і Соркін: найшвидший діалог у кіно, справжній хардкор для вуха."},
+
+  {"id": "talk-nolan", "kind": "talk", "title": "Крістофер Нолан про режисуру", "query": "Christopher Nolan interview on directing and storytelling", "why": "Як Нолан будує структуру і тримає глядача в напрузі."},
+  {"id": "talk-fincher", "kind": "talk", "title": "Девід Фінчер про ремесло", "query": "David Fincher interview on filmmaking craft", "why": "Фінчер про контроль кожного кадру і про те, що бачить глядач."},
+  {"id": "talk-tarantino", "kind": "talk", "title": "Квентін Тарантіно про діалоги", "query": "Quentin Tarantino interview writing dialogue", "why": "Чому його розмови за столом тримають сильніше за перестрілки."},
+  {"id": "talk-mrbeast", "kind": "talk", "title": "MrBeast про утримання", "query": "MrBeast explains retention how to keep viewers watching", "why": "Як найбільший ютубер думає про кожну секунду відео."},
+  {"id": "talk-galloway", "kind": "talk", "title": "Педді Ґеллоуей про стратегію YouTube", "query": "Paddy Galloway YouTube strategy interview", "why": "Консультант топових каналів про ідеї, назви і утримання."},
+
+  {"id": "crime-jcs-1", "kind": "crime", "title": "JCS Criminal Psychology — розбір допиту", "query": "JCS Criminal Psychology interrogation analysis", "why": "Як слідчі розколюють підозрюваного, крок за кроком."},
+  {"id": "crime-jcs-2", "kind": "crime", "title": "JCS Criminal Psychology — ще один допит", "query": "JCS Criminal Psychology interview analysis suspect lies", "why": "Брехня підозрюваного видно в деталях: слухай, де він збивається."},
+  {"id": "crime-douglas", "kind": "crime", "title": "Джон Дуглас, профайлер ФБР", "query": "John Douglas FBI profiler interview Mindhunter", "why": "Людина, з якої списали «Мисливця за розумом», про роботу з убивцями."},
+  {"id": "crime-voss", "kind": "crime", "title": "Кріс Восс, переговорник ФБР", "query": "Chris Voss FBI hostage negotiator interview", "why": "Як переговорник із заручниками змушує людину говорити."}
+]
