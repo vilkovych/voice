@@ -7,7 +7,7 @@ permissions:
   contents: write
 concurrency:
   group: earworm
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - run: pip install -q -U "yt-dlp[default]" deep-translator
+      - run: pip install -q -U "yt-dlp[default]"
       - name: Забрати вже зібрані уроки з сайту, щоб не збирати їх знову
         run: |
           mkdir -p app/lessons
@@ -30,11 +30,23 @@ jobs:
           ls app/lessons | wc -l
       - name: Зібрати уроки
         run: python3 build.py
-      - name: Перекласти українською
-        run: python3 translate_google.py
-      - name: Викласти сайт у gh-pages
+      - name: Викласти сайт (без нових перекладів)
         run: |
           cp build-report.txt app/ || true
+          cd app
+          touch .nojekyll
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name="earworm-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Earworm: сайт $(date -u +%F)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
+      - name: Перекласти українською
+        timeout-minutes: 30
+        continue-on-error: true
+        run: python3 translate_google.py
+      - name: Викласти сайт з перекладом
+        run: |
+          cp build-report.txt app/ || true
+          rm -rf app/.git
           cd app
           touch .nojekyll
           git init -q -b gh-pages
