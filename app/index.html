@@ -226,7 +226,22 @@ function openLesson(id){meta=CAT.find(c=>c.id===id);if(!meta)return;
     L=les;S.last=id;save();show('play');$('#end').hidden=true;$('#game').hidden=false;
     $('#pTitle').textContent=meta.title;$('#pSub').textContent=meta.artist||'';$('#lt').textContent=L.lines.length;
     score=combo=bestCombo=good=bad=wrongStreak=0;$('#startBtn').hidden=false;$('#startTip').textContent='перший рядок заграє сам';loadVideo(L.videoId);
-    let i=(S.prog[id]||{}).pos||0;if(i>=L.lines.length)i=0;start(i,false)}).catch(()=>pop('🛠️','урок не завантажився'))}
+    let i=(S.prog[id]||{}).pos||0;if(i>=L.lines.length)i=0;start(i,false);translateLesson(L)}).catch(()=>pop('🛠️','урок не завантажився'))}
+/* переклад з телефона: Google, кеш у браузері */
+async function gtx(text){const r=await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=uk&dt=t',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:'q='+encodeURIComponent(text)});
+  if(!r.ok)throw new Error(r.status);const js=await r.json();return js[0].map(x=>x&&x[0]||'').join('')}
+async function mymem(text){const r=await fetch('https://api.mymemory.translated.net/get?langpair=en|uk&q='+encodeURIComponent(text));const js=await r.json();return js&&js.responseData&&js.responseData.translatedText||''}
+async function translateLesson(les){
+  const key='ewtr:'+les.id;let cache={};try{cache=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+  les.lines.forEach((l,i)=>{if(!l.uk&&cache[i])l.uk=cache[i]});
+  const todo=les.lines.map((l,i)=>l.uk?-1:i).filter(i=>i>=0);if(!todo.length){if(cur)showUa();return}
+  for(let a=0;a<todo.length;a+=40){const part=todo.slice(a,a+40);if(L!==les)return;
+    let got=[];try{got=(await gtx(part.map(i=>les.lines[i].en).join('\n'))).split('\n')}catch(e){got=[]}
+    if(got.length!==part.length){got=[];for(const i of part){let t='';try{t=await gtx(les.lines[i].en)}catch(e){try{t=await mymem(les.lines[i].en)}catch(e2){}}got.push(t)}}
+    part.forEach((i,k)=>{const t=(got[k]||'').trim();if(t){les.lines[i].uk=t;cache[i]=t}});
+    try{localStorage.setItem(key,JSON.stringify(cache))}catch(e){}
+    if(cur&&L===les)showUa()}
+}
 function start(i,auto=true){
   const l=L.lines[i];
   const parts=(l.en.match(/[A-Za-z0-9À-ÖØ-öø-ÿ']+|[^A-Za-z0-9À-ÖØ-öø-ÿ']+/g)||[]).map(p=>({p,w:LET.test(p)&&!/[^A-Za-z0-9À-ÖØ-öø-ÿ']/.test(p),h:false}));
@@ -253,7 +268,7 @@ function mark(){lineEl.querySelectorAll('.cur').forEach(e=>e.classList.remove('c
   if(S.opt.mode==='words')cur.chars.filter(x=>x.pi===c.pi).forEach(x=>x.el.classList.add('cur'));else c.el.classList.add('cur')}
 function fill(c,hint){c.done=true;c.el.textContent=c.ch;c.el.classList.add('f');if(hint)c.el.classList.add('h')}
 function showUa(){const l=L.lines[cur.i];const vis=uaShow||cur.done;$('#bUa').setAttribute('aria-pressed',uaShow);uaEl.classList.toggle('on',vis);
-  uaEl.textContent=vis?(l.uk||'переклад цього рядка ще готується'):'Переклад з’явиться, коли збереш рядок'}
+  uaEl.textContent=vis?(l.uk||'перекладаю…'):'Переклад з’явиться, коли збереш рядок'}
 function hud(){$('#sc').textContent=score;$('#cb').textContent=combo}
 function right(n){good+=n;combo+=n;wrongStreak=0;cur.miss=0;bestCombo=Math.max(bestCombo,combo);score+=n*10*(1+Math.floor(combo/10));
   const h=Object.keys(HYPE).map(Number).find(k=>combo>=k&&combo-n<k);if(h){pop(HYPE[h][0],HYPE[h][1],h+' поспіль',true);sfx('hype')}else sfx('tick')}

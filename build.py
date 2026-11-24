@@ -134,22 +134,41 @@ def subtitles(vid):
     return None
 
 
+def is_official(channel, artist):
+    ch = (channel or "").lower().strip()
+    a = artist.lower()
+    return bool(ch) and (a in ch or ch.endswith("- topic") or "vevo" in ch or ch.replace(" ", "") in a.replace(" ", ""))
+
+
+_search_cache = {}
+
+
+def cached_search(q):
+    if q not in _search_cache:
+        _search_cache[q] = yt_search(q)
+    return _search_cache[q]
+
+
 def build_song(item):
     q = urllib.parse.urlencode({"track_name": item["title"], "artist_name": item["artist"]})
     found = [r for r in get_json("https://lrclib.net/api/search?" + q)
              if r.get("syncedLyrics") and not r.get("instrumental")]
     if not found:
         raise RuntimeError("lrclib: нема тексту з часом")
-    tried = set()
-    for rec in found[:4]:
-        dur = rec.get("duration") or 0
-        for query in (f"{item['artist']} {item['title']} official audio", f"{item['artist']} {item['title']}"):
-            for e in yt_search(query):
-                if e["id"] in tried or not e.get("duration") or abs(e["duration"] - dur) > 3:
-                    continue
-                tried.add(e["id"])
-                if embeddable(e["id"]):
-                    return e, parse_lrc(rec["syncedLyrics"])
+    queries = (f"{item['artist']} {item['title']} official audio", f"{item['artist']} {item['title']}", f"{item['artist']} {item['title']} topic")
+    for official_only in (True, False):  # спершу тільки офіційні канали
+        tried = set()
+        for rec in found[:5]:
+            dur = rec.get("duration") or 0
+            for query in queries:
+                for e in cached_search(query):
+                    if e["id"] in tried or not e.get("duration") or abs(e["duration"] - dur) > 3:
+                        continue
+                    if official_only and not is_official(e.get("channel") or e.get("uploader"), item["artist"]):
+                        continue
+                    tried.add(e["id"])
+                    if embeddable(e["id"]):
+                        return e, parse_lrc(rec["syncedLyrics"])
     raise RuntimeError("не знайшов відео, яке за довжиною збігається з текстом")
 
 
@@ -179,7 +198,10 @@ def main():
         if only and item["id"] != only:
             continue
         if os.path.exists(path) and not (force or only):
-            continue
+            old = json.load(open(path, encoding="utf-8"))
+            if item["kind"] != "song" or is_official(old.get("channel"), item["artist"]):
+                continue
+            print(f"   {item['id']}: зараз з неофіційного каналу «{old.get('channel')}», шукаю офіційний")
         print(f"→ {item['id']} …", flush=True)
         try:
             e, lines = build_song(item) if item["kind"] == "song" else build_video(item)
