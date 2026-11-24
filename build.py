@@ -155,20 +155,22 @@ def build_song(item):
              if r.get("syncedLyrics") and not r.get("instrumental")]
     if not found:
         raise RuntimeError("lrclib: нема тексту з часом")
-    queries = (f"{item['artist']} {item['title']} official audio", f"{item['artist']} {item['title']}", f"{item['artist']} {item['title']} topic")
-    for official_only in (True, False):  # спершу тільки офіційні канали
-        tried = set()
-        for rec in found[:5]:
-            dur = rec.get("duration") or 0
-            for query in queries:
-                for e in cached_search(query):
-                    if e["id"] in tried or not e.get("duration") or abs(e["duration"] - dur) > 3:
-                        continue
-                    if official_only and not is_official(e.get("channel") or e.get("uploader"), item["artist"]):
-                        continue
-                    tried.add(e["id"])
-                    if embeddable(e["id"]):
-                        return e, parse_lrc(rec["syncedLyrics"])
+    queries = (f"{item['artist']} {item['title']} official audio", f"{item['artist']} {item['title']}", f"{item['artist']} {item['title']} topic", f"{item['artist']} {item['title']} lyrics")
+    for rec in found[:5]:
+        dur = rec.get("duration") or 0
+        cands, seen = [], set()
+        for query in queries:
+            for e in cached_search(query):
+                if e["id"] in seen or not e.get("duration") or abs(e["duration"] - dur) > 3:
+                    continue
+                seen.add(e["id"])
+                cands.append(e)
+        # спершу офіційні канали, далі решта; кілька запасних версій на випадок блокування в країні
+        cands.sort(key=lambda e: 0 if is_official(e.get("channel") or e.get("uploader"), item["artist"]) else 1)
+        good = [e for e in cands[:8] if embeddable(e["id"])][:5]
+        if good:
+            good[0]["_ids"] = [g["id"] for g in good]
+            return good[0], parse_lrc(rec["syncedLyrics"])
     raise RuntimeError("не знайшов відео, яке за довжиною збігається з текстом")
 
 
@@ -197,16 +199,18 @@ def main():
         path = os.path.join(LES, item["id"] + ".json")
         if only and item["id"] != only:
             continue
+        if item["kind"] != "song" and os.environ.get("EARWORM_SKIP_VIDEO") == "1":
+            continue  # субтитри YouTube машинам GitHub не віддає; сцени й розмови збираються іншим способом
         if os.path.exists(path) and not (force or only):
             old = json.load(open(path, encoding="utf-8"))
-            if item["kind"] != "song" or is_official(old.get("channel"), item["artist"]):
+            if item["kind"] != "song" or (is_official(old.get("channel"), item["artist"]) and len(old.get("videoIds") or []) > 1):
                 continue
-            print(f"   {item['id']}: зараз з неофіційного каналу «{old.get('channel')}», шукаю офіційний")
+            print(f"   {item['id']}: шукаю офіційне відео і запасні версії")
         print(f"→ {item['id']} …", flush=True)
         try:
             e, lines = build_song(item) if item["kind"] == "song" else build_video(item)
             lines = lines[:MAX_LINES[item["kind"]]]
-            json.dump({"id": item["id"], "videoId": e["id"], "videoTitle": e.get("title"),
+            json.dump({"id": item["id"], "videoId": e["id"], "videoIds": e.get("_ids") or [e["id"]], "videoTitle": e.get("title"),
                        "channel": e.get("channel") or e.get("uploader"), "lines": lines},
                       open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
             print(f"   ок: {len(lines)} рядків · «{e.get('title')}» ({e.get('channel') or e.get('uploader')})")

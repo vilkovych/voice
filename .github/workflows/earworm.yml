@@ -28,25 +28,18 @@ jobs:
             git archive origin/gh-pages lessons 2>/dev/null | tar -x -C app || true
           fi
           ls app/lessons | wc -l
-      - name: Зібрати уроки
-        run: python3 build.py
-      - name: Викласти сайт (без нових перекладів)
-        run: |
-          cp build-report.txt app/ || true
-          cd app
-          touch .nojekyll
-          git init -q -b gh-pages
-          git add -A
-          git -c user.name="earworm-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "Earworm: сайт $(date -u +%F)"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" gh-pages
-      - name: Перекласти українською
-        timeout-minutes: 30
+      - name: Перевірка перекладача (чи пустить він запити з сайту)
         continue-on-error: true
-        run: python3 translate_google.py
-      - name: Викласти сайт з перекладом
+        run: |
+          curl -s -m 15 -D - -o /dev/null -H 'Origin: https://vilkovych.github.io' 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=uk&dt=t&q=hello' | grep -iE '^HTTP|access-control' || true
+          curl -s -m 15 -D - -o /dev/null -H 'Origin: https://vilkovych.github.io' 'https://api.mymemory.translated.net/get?langpair=en|uk&q=hello' | grep -iE '^HTTP|access-control' || true
+      - name: Зібрати уроки
+        env:
+          EARWORM_SKIP_VIDEO: "1"
+        run: python3 build.py
+      - name: Викласти сайт у gh-pages
         run: |
           cp build-report.txt app/ || true
-          rm -rf app/.git
           cd app
           touch .nojekyll
           git init -q -b gh-pages
